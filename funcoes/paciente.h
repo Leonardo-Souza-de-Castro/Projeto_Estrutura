@@ -10,38 +10,50 @@
 
 // Estrutura do paciente com campos básicos e ponteiros para lista duplamente encadeada
 typedef struct Paciente {
-    int id;
+    char rg[15];
     char nome[TAM_NOME];
     int idade;
-    char sintomas[200];
-    struct Paciente* ant;
-    struct Paciente* prox;
+    Data* entrada;
 } Paciente;
+
+typedef struct ELista {
+    Paciente* dados;
+    struct ELista* prox;
+} ELista;
+
+typedef struct Data {
+    int dia;
+    int mes;
+    int ano;
+} Data;
 
 // Lista de pacientes com ponteiro para o início, fim e contador
 typedef struct ListaPacientes {
-    Paciente* inicio;
-    Paciente* fim;
+    ELista* inicio;
     int qtd;
 } ListaPacientes;
 
 // Função que cria uma lista vazia
-ListaPacientes* criar_lista();
+ListaPacientes* criarLista();
+
+Data* criarData(int dia, int mes, int ano);
 
 // Cria e retorna um novo paciente com os dados informados
-Paciente* criar_paciente(int id, const char* nome, int idade, const char* sintomas);
+int cadastrarPaciente(ListaPacientes* lista, char nome[], int idade, char rg[], int dia, int mes, int ano);
 
-// Insere o paciente no fim da lista
-void inserir_paciente(ListaPacientes* lista, Paciente* novo);
+Paciente* consultarPaciente(ListaPacientes* lista);
 
 // Mostra os dados de todos os pacientes na lista
-void listar_pacientes(ListaPacientes* lista);
+void mostrarLista(ListaPacientes* lista);
 
 // Procura e retorna o ponteiro para o paciente com o ID especificado
-Paciente* buscar_paciente(ListaPacientes* lista, int id);
+Paciente* consultarPaciente(ListaPacientes* lista);
 
 // Remove o paciente com o ID informado e retorna 1 se sucesso, 0 se não encontrou
-int remover_paciente(ListaPacientes* lista, int id);
+int removerPaciente(ListaPacientes* lista, char rg[]) ;
+
+// Atualiza as informações do paciente
+int atualizarPaciente(ListaPacientes* lista, char rg[], char novoNome[], int novaIdade);
 
 // Libera a memória da lista completamente
 void liberar_lista(ListaPacientes* lista);

@@ -2,6 +2,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include "funcoes/heap.h"
+#include "funcoes/fila.h"
 
 static void trocar(Paciente** a, Paciente** b) {
     Paciente* temp = *a;
@@ -76,4 +77,40 @@ void mostrarHeap(Heap* heap) {
 
 void liberarHeap(Heap* heap) {
     free(heap);
+}
+
+void menu() {
+    printf("\n=== GERENCIADOR DE ATENDIMENTO MÉDICO ===\n");
+    printf("1. Enfileirar paciente\n");
+    printf("2. Desenfileirar paciente\n");
+    printf("3. Mostrar fila\n");
+    printf("0. Sair\n");
+    printf("Escolha: ");
+}
+
+void menuHeap(ListaPacientes *lista, Heap *heap){
+    int opcao;
+    do {
+        menu();
+        scanf("%d", &opcao);
+        getchar();
+
+        switch (opcao) {
+            case 1:
+                Paciente* paciente = consultarPaciente(lista);
+                inserirHeap(heap, paciente);
+                break;
+            case 2:
+                removerHeap(heap);
+                break;
+            case 3:
+                mostrarHeap(heap);
+                break;
+            case 0:
+                printf("Saindo...\n");
+                break;
+            default:
+                printf("Opção inválida.\n");
+        }
+    } while (opcao != 0);
 }

@@ -4,14 +4,14 @@
 
 #include "paciente.h"
 
-typedef struct NoFila {
+typedef struct EFila {
     Paciente* paciente;
-    struct NoFila* prox;
-} NoFila;
+    struct EFila* prox;
+} EFila;
 
 typedef struct {
-    NoFila* head;
-    NoFila* tail;
+    EFila* head;
+    EFila* tail;
     int qtd;
 } Fila;
 

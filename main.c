@@ -24,11 +24,11 @@ void menu() {
 
 int main() {
     int opcao;
-    ListaPaciente* lista = criarLista();
+    ListaPacientes* lista = criarLista();
     Fila* fila = criarFila();
     Heap* heap = criarHeap(20);
     Pilha* pilha = criarPilha();
-    NoArvore* raiz = NULL;
+    // NoArvore* raiz = NULL;
 
     carregarDados(lista, "dados.txt");
 
@@ -48,7 +48,7 @@ int main() {
                 menuHeap(lista, heap);
                 break;
             case 4:
-                menuArvore(lista, &raiz);
+                printf("Ainda estamos em construção\n");
                 break;
             case 5:
                 menuPilha(pilha);
@@ -72,6 +72,6 @@ int main() {
     liberarFila(fila);
     liberarHeap(heap);
     liberarPilha(pilha);
-    liberarArvore(raiz);
+    // liberarArvore(raiz);
     return 0;
 }

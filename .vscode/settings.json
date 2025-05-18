@@ -2,6 +2,8 @@
     "files.associations": {
         "fila.h": "c",
         "paciente.h": "c",
-        "pilha.h": "c"
+        "pilha.h": "c",
+        "stdlib.h": "c",
+        "stdio.h": "c"
     }
 }
