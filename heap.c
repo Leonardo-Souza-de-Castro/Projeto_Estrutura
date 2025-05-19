@@ -97,7 +97,7 @@ void menuHeap(ListaPacientes *lista, Heap *heap){
 
         switch (opcao) {
             case 1:
-                Paciente* paciente = consultarPaciente(lista);
+                Paciente* paciente = consultarPaciente(lista, NULL);
                 inserirHeap(heap, paciente);
                 break;
             case 2:

@@ -28,7 +28,6 @@ int main() {
     Fila* fila = criarFila();
     Heap* heap = criarHeap(20);
     Pilha* pilha = criarPilha();
-    // NoArvore* raiz = NULL;
 
     carregarDados(lista, "dados.txt");
 
@@ -48,10 +47,10 @@ int main() {
                 menuHeap(lista, heap);
                 break;
             case 4:
-                printf("Ainda estamos em construção\n");
+                menuArvore(lista);
                 break;
             case 5:
-                menuPilha(pilha);
+                desfazer(fila, pilha);
                 break;
             case 6:
                 salvarDados(lista, "dados.txt");

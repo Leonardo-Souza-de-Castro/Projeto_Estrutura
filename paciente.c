@@ -69,13 +69,17 @@ void mostrarLista(ListaPacientes* lista) {
 }
 
 // Consulta um paciente pelo RG
-Paciente* consultarPaciente(ListaPacientes* lista) {
+Paciente* consultarPaciente(ListaPacientes* lista, char identidade[]) {
     char rg[15];
-
-    printf("Digite seu RG: ");
-    fgets(rg, sizeof(rg), stdin);
-    rg[strcspn(rg, "\n")] = 0;
-
+    if (identidade == NULL)
+    {
+        printf("Digite seu RG: ");
+        fgets(rg, sizeof(rg), stdin);
+        rg[strcspn(rg, "\n")] = 0;
+    }else{
+        strncpy(rg, identidade, sizeof(rg));
+    }
+    
     if (lista == NULL) return;
 
     ELista* aux = lista->inicio;
@@ -191,7 +195,7 @@ void menuPacientes(ListaPacientes* lista){
                 break;
             case 2:
 
-                Paciente* p = consultarPaciente(lista);
+                Paciente* p = consultarPaciente(lista, NULL);
                 printf("Paciente encontrado:\n");
                 printf("Nome: %s\n", p->nome);
                 printf("Idade: %d\n", p->idade);
