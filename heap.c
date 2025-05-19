@@ -4,13 +4,13 @@
 #include "funcoes/heap.h"
 #include "funcoes/fila.h"
 
-static void trocar(Paciente** a, Paciente** b) {
-    Paciente* temp = *a;
+static void trocar(Paciente **a, Paciente **b) {
+    Paciente *temp = *a;
     *a = *b;
     *b = temp;
 }
 
-Heap* criarHeap(int capacidade) {
+Heap *criarHeap(int capacidade) {
     Heap* heap = (Heap*) malloc(sizeof(Heap));
     if (heap != NULL) {
         heap->tamanho = 0;
@@ -18,7 +18,7 @@ Heap* criarHeap(int capacidade) {
     return heap;
 }
 
-int inserirHeap(Heap* heap, Paciente* paciente) {
+int inserirHeap(Heap *heap, Paciente *paciente) {
     if (heap->tamanho >= TAM_MAX_HEAP) return 0;
 
     int i = heap->tamanho;
@@ -37,7 +37,7 @@ int inserirHeap(Heap* heap, Paciente* paciente) {
     return 1;
 }
 
-void peneirar(Heap* heap, int i) {
+void peneirar(Heap *heap, int i) {
     int maior = i;
     int esq = 2 * i + 1;
     int dir = 2 * i + 2;
@@ -54,7 +54,7 @@ void peneirar(Heap* heap, int i) {
     }
 }
 
-Paciente* removerHeap(Heap* heap) {
+Paciente *removerHeap(Heap *heap) {
     if (heap->tamanho == 0) return NULL;
 
     Paciente* removido = heap->pacientes[0];
@@ -64,7 +64,7 @@ Paciente* removerHeap(Heap* heap) {
     return removido;
 }
 
-void mostrarHeap(Heap* heap) {
+void mostrarHeap(Heap *heap) {
     if (heap == NULL || heap->tamanho == 0) {
         printf("Heap vazio.\n");
         return;
@@ -75,7 +75,7 @@ void mostrarHeap(Heap* heap) {
     }
 }
 
-void liberarHeap(Heap* heap) {
+void liberarHeap(Heap *heap) {
     free(heap);
 }
 
@@ -97,7 +97,7 @@ void menuHeap(ListaPacientes *lista, Heap *heap){
 
         switch (opcao) {
             case 1:
-                Paciente* paciente = consultarPaciente(lista, NULL);
+                Paciente *paciente = consultarPaciente(lista, NULL);
                 inserirHeap(heap, paciente);
                 break;
             case 2:

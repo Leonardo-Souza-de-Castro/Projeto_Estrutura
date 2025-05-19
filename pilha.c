@@ -2,8 +2,9 @@
 #include <stdlib.h>
 #include "funcoes/pilha.h"
 #include "funcoes/fila.h"
+#include "funcoes/paciente.h"
 
-Celula *start_Celula(Paciente* p, char op)
+Celula *start_Celula(Paciente *p, char op)
 {
     Celula *nova = malloc(sizeof(Celula));
     nova->anterior = NULL;
@@ -21,7 +22,7 @@ Pilha *start_Pilha()
     return Pilha;
 }
 
-void push(Pilha *Pilha, Paciente* p, char op)
+void push(Pilha *Pilha, Paciente *p, char op)
 {
     Celula *nova = start_Celula(p, op);
     if (Pilha->qtde != 0)
@@ -33,10 +34,10 @@ void push(Pilha *Pilha, Paciente* p, char op)
     Pilha->qtde++;
 }
 
-Celula* pop(Pilha *pilha) {
+Celula *pop(Pilha *pilha) {
     if (pilha->qtde == 0) return NULL;
 
-    Celula* topo = pilha->top;
+    Celula *topo = pilha->top;
     pilha->top = topo->proximo;
     if (pilha->top != NULL)
         pilha->top->anterior = NULL;
@@ -62,9 +63,9 @@ void desfazer(Fila* fila, Pilha* pilha){
 
     mostrarLog(pilha);
 
-    Celula* topo = pilha->top;
+    Celula *topo = pilha->top;
 
-    Paciente* p = consultarPaciente(fila, topo->registro->rg);
+    Paciente *p = consultarPaciente(fila, topo->registro->rg);
     if (p == NULL) {
         printf("Paciente não encontrado na fila.\n");
         return;

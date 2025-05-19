@@ -6,8 +6,8 @@
 #include "funcoes/paciente.h"
 
 //Cria um novo no da arvore, com os dados do paciente e os filhos Nulos
-EABB* criar_no(Paciente* p) {
-    EABB* novo = malloc(sizeof(EABB));
+EABB *criar_no(Paciente *p) {
+    EABB *novo = malloc(sizeof(EABB));
     novo->dados = p;
     novo->FilhoEsq = NULL;
     novo->FilhoDir = NULL;
@@ -15,18 +15,18 @@ EABB* criar_no(Paciente* p) {
 }
 
 //Inicializa uma nova arvore vazia
-ABB* criar_arvore() {
-    ABB* a = malloc(sizeof(ABB));
+ABB *criar_arvore() {
+    ABB *a = malloc(sizeof(ABB));
     a->raiz = NULL;
     a->qtd = 0;
     return a;
 }
 
 //Insere um novo nó na arvore ordenado pela idade
-void inserir_por_idade(ABB* arvore, Paciente* valor) {
-    EABB* novo = criar_no(valor); 
-    EABB* anterior = NULL;
-    EABB* atual = arvore->raiz;  
+void inserir_por_idade(ABB *arvore, Paciente *valor) {
+    EABB *novo = criar_no(valor); 
+    EABB *anterior = NULL;
+    EABB *atual = arvore->raiz;  
 
     while (atual != NULL) { //Percore a arvore
         anterior = atual;
@@ -50,10 +50,10 @@ void inserir_por_idade(ABB* arvore, Paciente* valor) {
 
 //Insere um novo nó na arvore ordenado pelo ano de entrada
 //Segue a mesma lógica da idade porém compara o ano
-void inserir_por_ano(ABB* arvore, Paciente* valor) {
-    EABB* novo = criar_no(valor);
-    EABB* anterior = NULL;
-    EABB* atual = arvore->raiz;
+void inserir_por_ano(ABB *arvore, Paciente *valor) {
+    EABB *novo = criar_no(valor);
+    EABB *anterior = NULL;
+    EABB *atual = arvore->raiz;
 
     while (atual != NULL) {
         anterior = atual;
@@ -77,10 +77,10 @@ void inserir_por_ano(ABB* arvore, Paciente* valor) {
 
 //Insere um novo nó na arvore ordenado pelo anmes de entrada
 //Segue a mesma lógica da idade porém compara o mes
-void inserir_por_mes(ABB* arvore, Paciente* valor) {
-    EABB* novo = criar_no(valor);
-    EABB* anterior = NULL;
-    EABB* atual = arvore->raiz;
+void inserir_por_mes(ABB *arvore, Paciente *valor) {
+    EABB *novo = criar_no(valor);
+    EABB *anterior = NULL;
+    EABB *atual = arvore->raiz;
 
     while (atual != NULL) {
         anterior = atual;
@@ -104,10 +104,10 @@ void inserir_por_mes(ABB* arvore, Paciente* valor) {
 
 //Insere um novo nó na arvore ordenado pelo dia de entrada
 //Segue a mesma lógica da idade porém compara o dia
-void inserir_por_dia(ABB* arvore, Paciente* valor) {
-    EABB* novo = criar_no(valor);
-    EABB* anterior = NULL;
-    EABB* atual = arvore->raiz;
+void inserir_por_dia(ABB *arvore, Paciente *valor) {
+    EABB *novo = criar_no(valor);
+    EABB *anterior = NULL;
+    EABB *atual = arvore->raiz;
 
     while (atual != NULL) {
         anterior = atual;
@@ -130,7 +130,7 @@ void inserir_por_dia(ABB* arvore, Paciente* valor) {
 }
 
 //Percore a arvore pela raiz e exibi os nós ordenados
-void exibir_em_ordem(EABB* raiz) {
+void exibir_em_ordem(EABB *raiz) {
     if (raiz != NULL) {
         exibir_em_ordem(raiz->FilhoEsq);
 
@@ -147,7 +147,7 @@ void exibir_em_ordem(EABB* raiz) {
     }
 }
 
-void liberar_arvore(EABB* raiz) {
+void liberar_arvore(EABB *raiz) {
     if (!raiz) return;
     liberar_arvore(raiz->FilhoEsq);
     liberar_arvore(raiz->FilhoDir);
@@ -174,79 +174,87 @@ void menuArvore(ListaPacientes *lista){
         getchar();
 
         switch (opcao) {
-            case 1:
-                ABB* teste = criar_arvore();
-                ELista* aux = lista->inicio;
+            case 1: {
 
+                ABB *teste = criar_arvore();
+                ELista *aux = lista->inicio;
+                
                 if (aux == NULL) {
                     printf("A lista de pacientes está vazia.\n");
                     break;
                 }
-
+                
                 while (aux != NULL) {
                     inserir_por_idade(teste, aux->dados);
                     aux = aux->prox;
                 }
-
+                
                 printf("Pacientes ordenados por idade:\n");
                 exibir_em_ordem(teste->raiz);
                 liberar_arvore(teste->raiz);
                 break;
+            }
 
-            case 2:
-                ABB* teste = criar_arvore();
-                ELista* aux = lista->inicio;
+            case 2: {
 
+                ABB *teste = criar_arvore();
+                ELista *aux = lista->inicio;
+                
                 if (aux == NULL) {
                     printf("A lista de pacientes está vazia.\n");
                     break;
                 }
-
+                
                 while (aux != NULL) {
                     inserir_por_ano(teste, aux->dados);
                     aux = aux->prox;
                 }
-
+                
                 printf("Pacientes ordenados por iano de entrada:\n");
                 exibir_em_ordem(teste->raiz);
                 liberar_arvore(teste->raiz);
                 break;
-            case 3:
-                ABB* teste = criar_arvore();
-                ELista* aux = lista->inicio;
+            }
+                case 3: {
 
+                    ABB *teste = criar_arvore();
+                    ELista *aux = lista->inicio;
+                    
+                    if (aux == NULL) {
+                        printf("A lista de pacientes está vazia.\n");
+                        break;
+                    }
+                    
+                    while (aux != NULL) {
+                        inserir_por_mes(teste, aux->dados);
+                        aux = aux->prox;
+                    }
+                    
+                    printf("Pacientes ordenados por mes de entrada:\n");
+                    exibir_em_ordem(teste->raiz);
+                    liberar_arvore(teste->raiz);
+                    break;
+                }
+            case 4: {
+
+                ABB *teste = criar_arvore();
+                ELista *aux = lista->inicio;
+                
                 if (aux == NULL) {
                     printf("A lista de pacientes está vazia.\n");
                     break;
                 }
-
-                while (aux != NULL) {
-                    inserir_por_mes(teste, aux->dados);
-                    aux = aux->prox;
-                }
-
-                printf("Pacientes ordenados por mes de entrada:\n");
-                exibir_em_ordem(teste->raiz);
-                liberar_arvore(teste->raiz);
-                break;
-            case 4:
-                ABB* teste = criar_arvore();
-                ELista* aux = lista->inicio;
-
-                if (aux == NULL) {
-                    printf("A lista de pacientes está vazia.\n");
-                    break;
-                }
-
+                
                 while (aux != NULL) {
                     inserir_por_dia(teste, aux->dados);
                     aux = aux->prox;
                 }
-
+                
                 printf("Pacientes ordenados por dia:\n");
                 exibir_em_ordem(teste->raiz);
                 liberar_arvore(teste->raiz);
                 break;
+            }
             case 0:
                 printf("Saindo...\n");
                 break;

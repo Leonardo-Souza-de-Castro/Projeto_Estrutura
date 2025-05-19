@@ -8,6 +8,13 @@
 
 #define TAM_NOME 100
 
+//Struct de data
+typedef struct Data {
+    int dia;
+    int mes;
+    int ano;
+} Data;
+
 // Estrutura do paciente com campos básicos 
 typedef struct Paciente {
     char rg[15];
@@ -22,17 +29,9 @@ typedef struct ELista {
     struct ELista *prox;
 } ELista;
 
-
-//Struct de data
-typedef struct Data {
-    int dia;
-    int mes;
-    int ano;
-} Data;
-
 // Lista de pacientes com ponteiro para o início, fim e contador
 typedef struct ListaPacientes {
-    ELista* inicio;
+    ELista *inicio;
     int qtd;
 } ListaPacientes;
 
@@ -46,18 +45,15 @@ Data *criarData(int dia, int mes, int ano);
 int cadastrarPaciente(ListaPacientes* lista, char nome[], int idade, char rg[], int dia, int mes, int ano);
 
 //Consulta um paciente na lista pelo RG
-Paciente* consultarPaciente(ListaPacientes* lista, char identidade[]) ;
+Paciente *consultarPaciente(ListaPacientes *lista, char identidade[]) ;
 
 // Mostra os dados de todos os pacientes na lista
-void mostrarLista(ListaPacientes* lista);
+void mostrarLista(ListaPacientes *lista);
 
 // Remove o paciente com o RG informado e retorna 1 se sucesso, 0 se não encontrou
-int removerPaciente(ListaPacientes* lista, char rg[]) ;
+int removerPaciente(ListaPacientes *lista, char rg[]) ;
 
 // Atualiza as informações do paciente
-int atualizarPaciente(ListaPacientes* lista, char rg[], char novoNome[], int novaIdade);
-
-// Libera a memória da lista completamente
-void liberar_lista(ListaPacientes* lista);
+int atualizarPaciente(ListaPacientes *lista, char rg[], char novoNome[], int novaIdade);
 
 #endif

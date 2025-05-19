@@ -2,8 +2,8 @@
 #include <stdlib.h>
 #include "funcoes/paciente.h"
 
-void salvarPacientesArquivo(ListaPacientes *lista, const char *nomeArquivo) {
-    FILE *arquivo = fopen(nomeArquivo, "w");
+void salvarPacientesArquivo(ListaPacientes *lista) {
+    FILE *arquivo = fopen("Dados.txt", "w");
     if (arquivo == NULL) {
         perror("Erro ao abrir arquivo para escrita");
         return;
@@ -19,11 +19,11 @@ void salvarPacientesArquivo(ListaPacientes *lista, const char *nomeArquivo) {
     }
 
     fclose(arquivo);
-    printf("Pacientes salvos em '%s'\n", nomeArquivo);
+    printf("Pacientes salvos em '%s'\n", "Dados.txt");
 }
 
-void carregarPacientesArquivo(ListaPacientes *lista, const char *nomeArquivo) {
-    FILE *arquivo = fopen(nomeArquivo, "r");
+void carregarPacientesArquivo(ListaPacientes *lista) {
+    FILE *arquivo = fopen("Dados.txt", "r");
     if (arquivo == NULL) {
         perror("Erro ao abrir arquivo para leitura");
         return;
@@ -47,7 +47,7 @@ void carregarPacientesArquivo(ListaPacientes *lista, const char *nomeArquivo) {
     }
 
     fclose(arquivo);
-    printf("Pacientes carregados de '%s'\n", nomeArquivo);
+    printf("Pacientes carregados de '%s'\n", "Dados.txt");
 }
 
 void menu(){
@@ -66,10 +66,10 @@ void menuSalvar(ListaPacientes *lista){
 
         switch (opcao) {
             case 1:
-                salvarPacientesArquivo(lista, "Dados.txt");
+                salvarPacientesArquivo(lista);
                 break;
             case 2:
-                carregarPacientesArquivo(lista, "Dados.txt");
+                carregarPacientesArquivo(lista);
                 break;
             case 0:
                 printf("Saindo...\n");

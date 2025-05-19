@@ -4,8 +4,8 @@
 #include "paciente.h"
 
 // Cria uma nova lista vazia
-ListaPacientes* criarLista() {
-    ListaPacientes* lista = (ListaPacientes*) malloc(sizeof(ListaPacientes));
+ListaPacientes *criarLista() {
+    ListaPacientes *lista = (ListaPacientes*) malloc(sizeof(ListaPacientes));
     if (lista != NULL) {
         lista->inicio = NULL;
         lista->qtd = 0;
@@ -14,8 +14,8 @@ ListaPacientes* criarLista() {
 }
 
 // Cria uma nova data
-Data* criarData(int dia, int mes, int ano) {
-    Data* novaData = (Data*) malloc(sizeof(Data));
+Data *criarData(int dia, int mes, int ano) {
+    Data *novaData = (Data*) malloc(sizeof(Data));
     if (novaData != NULL) {
         novaData->dia = dia;
         novaData->mes = mes;
@@ -25,10 +25,10 @@ Data* criarData(int dia, int mes, int ano) {
 }
 
 // Cria um novo paciente e insere no início da lista
-int cadastrarPaciente(ListaPacientes* lista, char nome[], int idade, char rg[], int dia, int mes, int ano) {
+int cadastrarPaciente(ListaPacientes *lista, char nome[], int idade, char rg[], int dia, int mes, int ano) {
     if (lista == NULL) return 0;
 
-    ELista* novo = (ELista*) malloc(sizeof(ELista));
+    ELista *novo = (ELista*) malloc(sizeof(ELista));
     if (novo == NULL) return 0;
 
     novo->dados->entrada = criarData(dia, mes, ano);
@@ -49,13 +49,13 @@ int cadastrarPaciente(ListaPacientes* lista, char nome[], int idade, char rg[], 
 }
 
 // Mostra todos os pacientes da lista
-void mostrarLista(ListaPacientes* lista) {
+void mostrarLista(ListaPacientes *lista) {
     if (lista == NULL || lista->inicio == NULL) {
         printf("Lista vazia.\n");
         return;
     }
 
-    ELista* aux = lista->inicio;
+    ELista *aux = lista->inicio;
     while (aux != NULL) {
         printf("Nome: %s\n", aux->dados->nome);
         printf("Idade: %d\n", aux->dados->idade);
@@ -69,7 +69,7 @@ void mostrarLista(ListaPacientes* lista) {
 }
 
 // Consulta um paciente pelo RG
-Paciente* consultarPaciente(ListaPacientes* lista, char identidade[]) {
+Paciente *consultarPaciente(ListaPacientes *lista, char identidade[]) {
     char rg[15];
     if (identidade == NULL)
     {
@@ -82,7 +82,7 @@ Paciente* consultarPaciente(ListaPacientes* lista, char identidade[]) {
     
     if (lista == NULL) return;
 
-    ELista* aux = lista->inicio;
+    ELista *aux = lista->inicio;
     while (aux != NULL) {
         if (strcmp(aux->dados->rg, rg) == 0) {
             Paciente* pacienteLocalizado = criar_paciente(aux->dados->rg, aux->dados->nome, aux->dados->idade, aux->dados->entrada);
@@ -95,10 +95,10 @@ Paciente* consultarPaciente(ListaPacientes* lista, char identidade[]) {
 }
 
 // Atualiza os dados de um paciente (encontrado pelo RG)
-int atualizarPaciente(ListaPacientes* lista, char rg[], char novoNome[], int novaIdade) {
+int atualizarPaciente(ListaPacientes *lista, char rg[], char novoNome[], int novaIdade) {
     if (lista == NULL) return 0;
 
-    ELista* aux = lista->inicio;
+    ELista *aux = lista->inicio;
     while (aux != NULL) {
         if (strcmp(aux->dados->rg, rg) == 0) {
             strcpy(aux->dados->nome, novoNome);
@@ -112,11 +112,11 @@ int atualizarPaciente(ListaPacientes* lista, char rg[], char novoNome[], int nov
 }
 
 // Remove paciente pelo RG
-int removerPaciente(ListaPacientes* lista, char rg[]) {
+int removerPaciente(ListaPacientes *lista, char rg[]) {
     if (lista == NULL || lista->inicio == NULL) return 0;
 
-    ELista* atual = lista->inicio;
-    ELista* anterior = NULL;
+    ELista *atual = lista->inicio;
+    ELista *anterior = NULL;
 
     while (atual != NULL && strcmp(atual->dados->rg, rg) != 0) {
         anterior = atual;
@@ -195,7 +195,7 @@ void menuPacientes(ListaPacientes* lista){
                 break;
             case 2:
 
-                Paciente* p = consultarPaciente(lista, NULL);
+                Paciente *p = consultarPaciente(lista, NULL);
                 printf("Paciente encontrado:\n");
                 printf("Nome: %s\n", p->nome);
                 printf("Idade: %d\n", p->idade);

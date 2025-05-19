@@ -1,12 +1,14 @@
 #ifndef PILHA_H
 #define PILHA_H
+#include "paciente.h"
+#include "fila.h"
 
 //Struct da célula da pilha
 typedef struct Celula
 {
     struct Celula *anterior;
     struct Celula *proximo;
-    Paciente* registro;
+    Paciente *registro;
     char operacao;
 } Celula;
 
@@ -19,12 +21,12 @@ typedef struct
 
 
 //Insere na pilha
-void push(Pilha *Pilha, Paciente* p, char op);
+void push(Pilha *Pilha, Paciente *p, char op);
 
 //remove da pilha
-char pop(Pilha *Pilha);
+Celula *pop(Pilha *pilha) ;
 
 //Desfaz a ultima ação realizada na fila
-void desfazer(Fila* fila, Pilha* pilha);
+void desfazer(Fila *fila, Pilha *pilha);
 
 #endif
