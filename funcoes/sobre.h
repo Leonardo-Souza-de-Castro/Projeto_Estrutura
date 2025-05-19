@@ -5,6 +5,7 @@
 #include <stdlib.h>
 #include <string.h>
 
+//Exibe as infos dos criadores do projeto
 void mostrarSobre();
 
 #endif

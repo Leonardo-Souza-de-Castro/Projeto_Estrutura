@@ -2,6 +2,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include "funcoes/fila.h"
+#include "funcoes/pilha.h"
 
 Fila* criarFila() {
     Fila* fila = (Fila*) malloc(sizeof(Fila));
@@ -13,7 +14,7 @@ Fila* criarFila() {
     return fila;
 }
 
-int enfileirar(Fila* fila, Paciente* paciente) {
+int enfileirar(Fila* fila, Paciente* paciente, Pilha* pilha, int flag) {
     if (fila == NULL || paciente == NULL) return 0;
 
     EFila* novo = (EFila*) malloc(sizeof(EFila));
@@ -27,12 +28,18 @@ int enfileirar(Fila* fila, Paciente* paciente) {
     } else {
         fila->tail->prox = novo;
     }
+
+    if (flag)
+    {
+        push(pilha, paciente, 'E');
+    }
+    
     fila->tail = novo;
     fila->qtd++;
     return 1;
 }
 
-Paciente* desenfileirar(Fila* fila) {
+Paciente* desenfileirar(Fila* fila, Pilha* pilha, int flag) {
     if (fila == NULL || fila->qtd == 0) return NULL;
 
     EFila* removido = fila->head;
@@ -41,6 +48,11 @@ Paciente* desenfileirar(Fila* fila) {
 
     if (fila->head == NULL) {
         fila->tail = NULL;
+    }
+
+    if (flag)
+    {
+        push(pilha, paciente, 'D');
     }
 
     free(removido);
@@ -62,9 +74,9 @@ void mostrarFila(Fila* fila) {
     }
 }
 
-void liberarFila(Fila* fila) {
+void liberarFila(Fila* fila, Pilha* pilha) {
     while (fila->qtd > 0) {
-        desenfileirar(fila);
+        desenfileirar(fila, pilha, 1);
     }
     free(fila);
 }
@@ -78,7 +90,7 @@ void menu() {
     printf("Escolha: ");
 }
 
-void menuFila(ListaPacientes *lista, Fila *fila){
+void menuFila(ListaPacientes *lista, Fila *fila, Pilha* pilha){
     int opcao;
     do {
         menu();
@@ -87,11 +99,11 @@ void menuFila(ListaPacientes *lista, Fila *fila){
 
         switch (opcao) {
             case 1:
-                Paciente* p = consultarPaciente(lista);
-                enfileirar(fila, p); //não sei oq passar como parametro aqui
+                Paciente* p = consultarPaciente(lista, NULL);
+                enfileirar(fila, p, pilha, 1);
                 break;
             case 2:
-                desenfileirar(fila);
+                desenfileirar(fila, pilha,1);
                 break;
             case 3:
                 mostrarFila(fila);
