@@ -105,6 +105,7 @@ int removerPaciente(ListaPacientes *lista, char rg[]) ;
 // Atualiza as informações do paciente
 int atualizarPaciente(ListaPacientes *lista, char rg[], char novoNome[], int novaIdade);
 
+// Exibe o menu de operações relacionadas aos pacientes
 void menuPacientes(ListaPacientes* lista);
 
 Paciente *criarPaciente(char nome[], char rg[], int idade, int dia, int mes, int ano);

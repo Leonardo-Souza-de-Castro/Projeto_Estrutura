@@ -95,31 +95,60 @@ Este projeto tem como principal objetivo aplicar os conceitos de **listas encade
 
 ---
 
+## 📁 Organização do Projeto
+
+```text
+📦 PROJETO_ESTRUTURA
+├── .vscode/                     # Configurações do editor (opcional)
+├── funcoes/                     # Arquivos de cabeçalho (.h)
+│   ├── arvore.h
+│   ├── fila.h
+│   ├── heap.h
+│   ├── paciente.h
+│   ├── pilha.h
+│   ├── salvar.h
+│   ├── sobre.h
+├── a.exe                        # Arquivo executável (gerado na compilação)
+├── Dados.txt                    # Arquivo de entrada com dados de pacientes
+├── arvore.c
+├── fila.c
+├── heap.c
+├── main.c
+├── paciente.c
+├── pilha.c
+├── salvar.c
+├── sobre.c
+├── README.md
+```
+
+---
 ## 🚀 Como Executar
 
 1. **Clone o repositório:**
 
 ```bash
-git clone https://github.com/seu-usuario/gerenciador-atendimento-medico.git
-cd gerenciador-atendimento-medico
+git clone https://github.com/Leonardo-Souza-de-Castro/Projeto_Estrutura
+cd Projeto_Estrutura
 ```
 
 2. **Compile o projeto:**
 
 ```bash
-gcc main.c -o gerenciador -lm
+gcc *.c
 ```
 
 3. **Execute o programa:**
 ```bash
-./gerenciador
+./a.exe
 ```
- 
+
+---
+
 ## 👨‍💻 Desenvolvedores
 
 **Nomes:** 
- - Felipe Brum Pereira
- - Leonardo Souza de Castro
+ - Felipe Brum Pereira - 22.123.112-9
+ - Leonardo Souza de Castro - 22.123.114-5
 
 **Ciclo:** 4º Semestre
 

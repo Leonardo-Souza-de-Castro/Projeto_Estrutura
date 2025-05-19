@@ -4,21 +4,22 @@
 
 #include "paciente.h"
 
-//Cria um novo Heap
+// Cria e retorna um novo heap com a capacidade especificada
 Heap *criarHeap(int capacidade);
 
-//Insere valor no heap
+// Insere um paciente no heap mantendo a propriedade de prioridade
 int inserirHeap(Heap *heap, Paciente *paciente);
 
-//Remove valor do heap
+// Remove e retorna o paciente com maior prioridade (no topo do heap)
 Paciente *removerHeap(Heap *heap);
 
-//Mostra os valores do heap
+// Exibe todos os pacientes presentes no heap
 void mostrarHeap(Heap *heap);
 
-//Libera o Heap
+// Libera a memória alocada para o heap
 void liberarHeap(Heap *heap);
 
+// Interface de menu para operações relacionadas ao heap, utilizando a lista e o heap passados
 void menuHeap(ListaPacientes *lista, Heap *heap);
 
 #endif
