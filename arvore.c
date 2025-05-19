@@ -1,8 +1,8 @@
 #include <stdio.h>
 #include <stdlib.h>
+#include "funcoes/fila.h"
 #include "funcoes/pilha.h"
 #include "funcoes/arvore.h"
-#include "funcoes/fila.h"
 #include "funcoes/paciente.h"
 
 //Cria um novo no da arvore, com os dados do paciente e os filhos Nulos
@@ -155,7 +155,7 @@ void liberar_arvore(EABB *raiz) {
 }
 
 //Print das infos do menu
-void menu() {
+void menuTextoArvore() {
     printf("\n=== GERENCIADOR DE ATENDIMENTO MÉDICO ===\n");
     printf("1. Pesquisar por idade\n");
     printf("2. Pesquisar por ano de entrada\n");
@@ -169,7 +169,7 @@ void menu() {
 void menuArvore(ListaPacientes *lista){
     int opcao;
     do {
-        menu();
+        menuTextoArvore();
         scanf("%d", &opcao);
         getchar();
 

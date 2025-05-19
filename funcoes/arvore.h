@@ -2,19 +2,6 @@
 #define ARVORE_H
 #include "paciente.h"
 
-//Struct dos nós
-typedef struct EABB {
-    Paciente *dados;
-    struct EABB *FilhoEsq;
-    struct EABB *FilhoDir;
-} EABB;
-
-//Struct da arvore
-typedef struct {
-    EABB *raiz;
-    int qtd;
-} ABB;
-
 //Cria um novo nó
 EABB *criar_no(Paciente *p);
 

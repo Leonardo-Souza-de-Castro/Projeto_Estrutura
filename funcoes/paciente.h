@@ -7,6 +7,7 @@
 #include <string.h>
 
 #define TAM_NOME 100
+#define TAM_MAX_HEAP 20
 
 //Struct de data
 typedef struct Data {
@@ -35,6 +36,54 @@ typedef struct ListaPacientes {
     int qtd;
 } ListaPacientes;
 
+//Struct dos nós
+typedef struct EABB {
+    Paciente *dados;
+    struct EABB *FilhoEsq;
+    struct EABB *FilhoDir;
+} EABB;
+
+//Struct da arvore
+typedef struct {
+    EABB *raiz;
+    int qtd;
+} ABB;
+
+//Struct da Efila (célula da fila)
+typedef struct EFila {
+    Paciente *paciente;
+    struct EFila *prox;
+} EFila;
+
+//Struct da fila
+typedef struct {
+    EFila *head;
+    EFila *tail;
+    int qtd;
+} Fila;
+
+//Struct do heap
+typedef struct {
+    Paciente *pacientes[TAM_MAX_HEAP];
+    int tamanho;
+} Heap;
+
+//Struct da célula da pilha
+typedef struct Celula
+{
+    struct Celula *anterior;
+    struct Celula *proximo;
+    Paciente *registro;
+    char operacao;
+} Celula;
+
+//Struct da pilha
+typedef struct Pilha
+{
+    Celula *top;
+    int qtde;
+} Pilha;
+
 // Função que cria uma lista vazia
 ListaPacientes *criarLista();
 
@@ -55,5 +104,9 @@ int removerPaciente(ListaPacientes *lista, char rg[]) ;
 
 // Atualiza as informações do paciente
 int atualizarPaciente(ListaPacientes *lista, char rg[], char novoNome[], int novaIdade);
+
+void menuPacientes(ListaPacientes* lista);
+
+Paciente *criarPaciente(char nome[], char rg[], int idade, int dia, int mes, int ano);
 
 #endif

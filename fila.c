@@ -81,7 +81,7 @@ void liberarFila(Fila *fila, Pilha *pilha) {
     free(fila);
 }
 
-void menu() {
+void menuTextoFila() {
     printf("\n=== GERENCIADOR DE ATENDIMENTO MÉDICO ===\n");
     printf("1. Enfileirar paciente\n");
     printf("2. Desenfileirar paciente\n");
@@ -93,16 +93,17 @@ void menu() {
 void menuFila(ListaPacientes *lista, Fila *fila, Pilha *pilha){
     int opcao;
     do {
-        menu();
+        menuTextoFila();
         scanf("%d", &opcao);
         getchar();
 
         switch (opcao) {
-            case 1:
+            case 1:{
                 Paciente *p = consultarPaciente(lista, NULL);
                 enfileirar(fila, p, pilha, 1);
                 break;
-            case 2:
+            }
+                case 2:
                 desenfileirar(fila, pilha,1);
                 break;
             case 3:

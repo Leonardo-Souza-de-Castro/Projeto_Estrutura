@@ -79,7 +79,7 @@ void liberarHeap(Heap *heap) {
     free(heap);
 }
 
-void menu() {
+void menuTextoHeap() {
     printf("\n=== GERENCIADOR DE ATENDIMENTO MÉDICO ===\n");
     printf("1. Enfileirar paciente\n");
     printf("2. Desenfileirar paciente\n");
@@ -91,15 +91,16 @@ void menu() {
 void menuHeap(ListaPacientes *lista, Heap *heap){
     int opcao;
     do {
-        menu();
+        menuTextoHeap();
         scanf("%d", &opcao);
         getchar();
 
         switch (opcao) {
-            case 1:
+            case 1:{
                 Paciente *paciente = consultarPaciente(lista, NULL);
                 inserirHeap(heap, paciente);
                 break;
+            }
             case 2:
                 removerHeap(heap);
                 break;

@@ -1,7 +1,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
-#include "paciente.h"
+#include "funcoes/paciente.h"
 
 // Cria uma nova lista vazia
 ListaPacientes *criarLista() {
@@ -24,25 +24,58 @@ Data *criarData(int dia, int mes, int ano) {
     return novaData;
 }
 
+Paciente *criarPaciente(char nome[], char rg[], int idade, int dia, int mes, int ano) {
+    Paciente *p = malloc(sizeof(Paciente));
+    if (!p) return NULL;
+
+    strncpy(p->nome, nome, sizeof(p->nome));
+    strncpy(p->rg, rg, sizeof(p->rg));
+    p->nome[sizeof(p->nome) - 1] = '\0';  // garante terminação
+    p->rg[sizeof(p->rg) - 1] = '\0';
+
+    p->idade = idade;
+
+    p->entrada = malloc(sizeof(Data));
+    if (!p->entrada) {
+        free(p);
+        return NULL;
+    }
+
+    p->entrada->dia = dia;
+    p->entrada->mes = mes;
+    p->entrada->ano = ano;
+
+    return p;
+}
+
 // Cria um novo paciente e insere no início da lista
 int cadastrarPaciente(ListaPacientes *lista, char nome[], int idade, char rg[], int dia, int mes, int ano) {
-    if (lista == NULL) return 0;
+    if (lista == NULL) return 0;  // Protege contra ponteiro nulo
 
-    ELista *novo = (ELista*) malloc(sizeof(ELista));
+    ELista *novo = (ELista *) malloc(sizeof(ELista));
     if (novo == NULL) return 0;
 
-    novo->dados->entrada = criarData(dia, mes, ano);
-    if (novo->dados->entrada == NULL) {
+    novo->dados = criarPaciente(nome, rg, idade, dia, mes, ano);
+    if (novo->dados == NULL) {
         free(novo);
         return 0;
     }
 
-    strcpy(novo->dados->nome, nome);
-    strcpy(novo->dados->rg, rg);
-    novo->dados->idade = idade;
+    novo->prox = NULL;
 
-    novo->prox = lista->inicio;
-    lista->inicio = novo;
+    if (lista->inicio == NULL) {
+        // Lista está vazia
+        lista->inicio = novo;
+    } else {
+        // Percorre até o final da lista
+        ELista *atual = lista->inicio;
+        while (atual->prox != NULL) {
+            atual = atual->prox;
+        }
+        atual->prox = novo;
+    }
+
+    // Atualiza contador de pacientes
     lista->qtd++;
 
     return 1;
@@ -80,12 +113,14 @@ Paciente *consultarPaciente(ListaPacientes *lista, char identidade[]) {
         strncpy(rg, identidade, sizeof(rg));
     }
     
-    if (lista == NULL) return;
+    if (lista == NULL){
+        return NULL;
+    }
 
     ELista *aux = lista->inicio;
     while (aux != NULL) {
         if (strcmp(aux->dados->rg, rg) == 0) {
-            Paciente* pacienteLocalizado = criar_paciente(aux->dados->rg, aux->dados->nome, aux->dados->idade, aux->dados->entrada);
+            Paciente* pacienteLocalizado = criarPaciente(aux->dados->nome, aux->dados->rg, aux->dados->idade, aux->dados->entrada->dia, aux->dados->entrada->mes, aux->dados->entrada->ano);
             return pacienteLocalizado;
         }
         aux = aux->prox;
@@ -138,7 +173,7 @@ int removerPaciente(ListaPacientes *lista, char rg[]) {
     return 1;
 }
 
-void menu() {
+void menuTextoPaciente() {
     printf("\n=== GERENCIADOR DE ATENDIMENTO MÉDICO ===\n");
     printf("1. Cadastro de novo paciente\n");
     printf("2. Consultar paciente cadastrado\n");
@@ -152,7 +187,7 @@ void menu() {
 void menuPacientes(ListaPacientes* lista){
     int opcao;
     do {
-        menu();
+        menuTextoPaciente();
         scanf("%d", &opcao);
         getchar();
 
@@ -173,12 +208,13 @@ void menuPacientes(ListaPacientes* lista){
                 
                 printf("Digite sua idade: ");
                 scanf("%d", &idade);
+                getchar();
                 
                 printf("Digite seu RG: ");
                 fgets(rg, sizeof(rg), stdin);
                 rg[strcspn(rg, "\n")] = 0;
                 
-                printf("Digite sua data de nascimento (ex: DD/MM/YYYY): ");
+                printf("Digite sua data de registro (ex: DD/MM/YYYY): ");
                 fgets(nascimento, sizeof(nascimento), stdin);
                 nascimento[strcspn(nascimento, "\n")] = 0;
 
@@ -193,18 +229,24 @@ void menuPacientes(ListaPacientes* lista){
                 
                 cadastrarPaciente(lista, nome, idade, rg, dia, mes, ano);
                 break;
-            case 2:
-
+            case 2:{
                 Paciente *p = consultarPaciente(lista, NULL);
-                printf("Paciente encontrado:\n");
-                printf("Nome: %s\n", p->nome);
-                printf("Idade: %d\n", p->idade);
-                printf("RG: %s\n", p->rg);
-                printf("Data de entrada: %02d/%02d/%04d\n",
-                   p->entrada->dia,
-                   p->entrada->mes,
-                   p->entrada->ano);
-                break;
+                if (p != NULL) {
+                    printf("\nPaciente encontrado:\n");
+                    printf("Nome: %s\n", p->nome);
+                    printf("Idade: %d\n", p->idade);
+                    printf("RG: %s\n", p->rg);
+                    printf("Data de entrada: %02d/%02d/%04d\n",
+                        p->entrada->dia,
+                        p->entrada->mes,
+                        p->entrada->ano);
+                    free(p->entrada);
+                    free(p);
+                } else {
+                    printf("Paciente não encontrado.\n");
+                }
+                    break;
+                }
             case 3:
                 mostrarLista(lista);
                 break;
@@ -223,7 +265,6 @@ void menuPacientes(ListaPacientes* lista){
                 atualizarPaciente(lista, rg, nome, idade);
                 break;
             case 5:
-                char rg[15];
 
                 printf("Digite seu RG: ");
                 fgets(rg, sizeof(rg), stdin);

@@ -27,7 +27,7 @@ int main() {
     ListaPacientes *lista = criarLista();
     Fila *fila = criarFila();
     Heap *heap = criarHeap(20);
-    Pilha *pilha = criarPilha();
+    Pilha *pilha = start_Pilha();
 
     do {
         menu();
@@ -48,7 +48,7 @@ int main() {
                 menuArvore(lista);
                 break;
             case 5:
-                desfazer(fila, pilha);
+                desfazer(fila, pilha, lista);
                 break;
             case 6:
                 menuSalvar(lista);

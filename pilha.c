@@ -48,14 +48,14 @@ Celula *pop(Pilha *pilha) {
 
 void mostrarLog(Pilha* pilha) {
     Celula* atual = pilha->top;
-    printf("Log de operações:\n");
+    printf("\nLog de operações:\n");
     while (atual != NULL) {
         printf("Operação: %c, Paciente: %s\n", atual->operacao, atual->registro->nome);
         atual = atual->proximo;
     }
 }
 
-void desfazer(Fila* fila, Pilha* pilha){
+void desfazer(Fila* fila, Pilha* pilha, ListaPacientes *lista) {
     if (pilha->qtde == 0) {
         printf("Nenhuma operação para desfazer.\n");
         return;
@@ -65,9 +65,9 @@ void desfazer(Fila* fila, Pilha* pilha){
 
     Celula *topo = pilha->top;
 
-    Paciente *p = consultarPaciente(fila, topo->registro->rg);
+    Paciente *p = consultarPaciente(lista, topo->registro->rg);
     if (p == NULL) {
-        printf("Paciente não encontrado na fila.\n");
+        printf("Paciente não encontrado na lista.\n");
         return;
     }
 
@@ -79,23 +79,16 @@ void desfazer(Fila* fila, Pilha* pilha){
     printf("Operação a ser desfeita: %c\n", topo->operacao);
 
     char opcao;
-    printf("Deseja realmente desfazer a operação? (s/n)\n");
+    printf("Deseja realmente desfazer a operação? (s/n): ");
     scanf(" %c", &opcao);
 
-    if (opcao == 's') {
-        if (topo->operacao == 'D') {
+    if (opcao == 's' || opcao == 'S') {
+        if (topo->operacao == 'D' || topo->operacao == 'E') {
+            // Recoloca o paciente na fila sem registrar no log
             enfileirar(fila, topo->registro, pilha, 0);
-            pop(pilha);
-            free(topo);
-        } else if (topo->operacao == 'E') {
-            desenfileirar(fila, pilha, 0);
-            pop(pilha);
-            free(topo);
-        }
-        else {
+            pop(pilha);  // Remove a operação da pilha de log
+        } else {
             printf("Operação desconhecida. Nenhuma ação realizada.\n");
         }
-    }else{
-        return;
     }
 }

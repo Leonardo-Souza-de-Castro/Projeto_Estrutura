@@ -4,14 +4,6 @@
 
 #include "paciente.h"
 
-#define TAM_MAX_HEAP 200
-
-//Struct do heap
-typedef struct {
-    Paciente *pacientes[TAM_MAX_HEAP];
-    int tamanho;
-} Heap;
-
 //Cria um novo Heap
 Heap *criarHeap(int capacidade);
 
@@ -26,5 +18,7 @@ void mostrarHeap(Heap *heap);
 
 //Libera o Heap
 void liberarHeap(Heap *heap);
+
+void menuHeap(ListaPacientes *lista, Heap *heap);
 
 #endif

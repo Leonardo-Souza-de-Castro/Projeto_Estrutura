@@ -1,32 +1,20 @@
 #ifndef PILHA_H
 #define PILHA_H
+
 #include "paciente.h"
-#include "fila.h"
 
-//Struct da célula da pilha
-typedef struct Celula
-{
-    struct Celula *anterior;
-    struct Celula *proximo;
-    Paciente *registro;
-    char operacao;
-} Celula;
+Celula *start_Celula(Paciente *p, char op);
 
-//Struct da pilha
-typedef struct
-{
-    Celula *top;
-    int qtde;
-} Pilha;
-
+//Cria uma nova Pilha
+Pilha *start_Pilha();
 
 //Insere na pilha
-void push(Pilha *Pilha, Paciente *p, char op);
+void push(Pilha *pilha, Paciente *p, char op);
 
 //remove da pilha
-Celula *pop(Pilha *pilha) ;
+Celula *pop(Pilha *pilha);
 
 //Desfaz a ultima ação realizada na fila
-void desfazer(Fila *fila, Pilha *pilha);
+void desfazer(Fila* fila, Pilha* pilha, ListaPacientes *lista);
 
 #endif

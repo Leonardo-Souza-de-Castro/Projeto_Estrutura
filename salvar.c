@@ -50,7 +50,7 @@ void carregarPacientesArquivo(ListaPacientes *lista) {
     printf("Pacientes carregados de '%s'\n", "Dados.txt");
 }
 
-void menu(){
+void menuTextoSalvar(){
     printf("\n=== GERENCIADOR DE ATENDIMENTO MÉDICO ===\n");
     printf("1. Salvar dados\n");
     printf("2. Carregar dados\n");
@@ -61,7 +61,7 @@ void menu(){
 void menuSalvar(ListaPacientes *lista){
     int opcao;
     do {
-        menu();
+        menuTextoSalvar();
         scanf("%d", &opcao);
 
         switch (opcao) {
